@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [kg, setKg] = useState('');
+  const [pounds, setPounds] = useState(0);
+
+  const handleKgChange = (e) => {
+    let val = parseFloat(e.target.value);
+    if (isNaN(val)) {
+      setPounds(0);
+    } else {
+      setPounds((val * 2.2).toFixed(2));
+    }
+    setKg(e.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="header">
+        <h1>Weight Converter</h1>
+      </div>
+      <div className="input">
+        <label htmlFor="input" id="input-label">
+          Weights in KG
+        </label>
+        <input
+          type="text"
+          id="input"
+          placeholder="Enter your weights in KG"
+          value={kg}
+          onChange={handleKgChange}
+        />
+      </div>
+      <div className="output">
+        Your Weight in Pounds
+        <p id="output">{pounds}</p>
+      </div>
     </div>
   );
 }
